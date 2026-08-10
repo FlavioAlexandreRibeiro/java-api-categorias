@@ -2,10 +2,9 @@ package com.API_de_Categorias.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.Data;
 
-@RequiredArgsConstructor
+@Data
 public class CategoriaRequestDTO {
 
     @NotBlank
