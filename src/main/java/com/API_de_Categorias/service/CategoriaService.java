@@ -17,6 +17,13 @@ public class CategoriaService {
 
     public CategoriaResponseDTO cadastrar(CategoriaRequestDTO categoriaDTO) {
 
+        if (categoriaRepository.existsByNomeIgnoreCase(
+                categoriaDTO.getNome())) {
+            throw new CategoriaDuplicadaException("Categoria com nome '"
+                    + categoriaDTO.getNome() +
+                    "' já existe");
+        }
+
         Categoria categoria = new Categoria();
 
         categoria.setNome(categoriaDTO.getNome());
@@ -48,6 +55,13 @@ public class CategoriaService {
 
         Categoria categoria = categoriaRepository.findById(id)
                 .orElseThrow(() -> new CategoriaNaoEncontradaException("Categoria não encontrada"));
+
+        if (categoriaRepository.existsByNomeIgnoreCaseAndIdNot(
+                categoriaDTO.getNome(), id)) {
+
+            throw new CategoriaDuplicadaException(
+                    "Categoria com nome '" + categoriaDTO.getNome() + "' já existe.");
+        }
 
         categoria.setNome(categoriaDTO.getNome());
 
