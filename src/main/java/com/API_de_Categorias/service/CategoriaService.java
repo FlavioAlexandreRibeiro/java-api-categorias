@@ -3,6 +3,8 @@ package com.API_de_Categorias.service;
 import com.API_de_Categorias.dto.CategoriaRequestDTO;
 import com.API_de_Categorias.dto.CategoriaResponseDTO;
 import com.API_de_Categorias.entity.Categoria;
+import com.API_de_Categorias.exception.CategoriaDuplicadaException;
+import com.API_de_Categorias.exception.CategoriaNaoEncontradaException;
 import com.API_de_Categorias.repository.CategoriaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,7 +39,8 @@ public class CategoriaService {
     public CategoriaResponseDTO buscarPorId(Long id) {
 
         Categoria categoria = categoriaRepository.findById(id)
-                .orElseThrow(() -> new CategoriaNaoEncontradaException("Categoria com ID " + id + " não encontrada."));
+                .orElseThrow(() -> new CategoriaNaoEncontradaException(
+                        "Categoria com ID " + id + " não encontrada."));
 
         return CategoriaResponseDTO.mapearParaDto(categoria);
     }
@@ -54,7 +57,8 @@ public class CategoriaService {
     public CategoriaResponseDTO atualizar(Long id, CategoriaRequestDTO categoriaDTO) {
 
         Categoria categoria = categoriaRepository.findById(id)
-                .orElseThrow(() -> new CategoriaNaoEncontradaException("Categoria não encontrada"));
+                .orElseThrow(() -> new CategoriaNaoEncontradaException(
+                        "Categoria não encontrada"));
 
         if (categoriaRepository.existsByNomeIgnoreCaseAndIdNot(
                 categoriaDTO.getNome(), id)) {
@@ -74,8 +78,11 @@ public class CategoriaService {
     public void deletar(Long id) {
 
         if (!categoriaRepository.existsById(id)) {
-            throw new CategoriaNaoEncontradaException(id);
+            throw new CategoriaNaoEncontradaException(
+                    "Categoria com ID " + id + " não encontrada."
+            );
         }
+
         categoriaRepository.deleteById(id);
     }
 
