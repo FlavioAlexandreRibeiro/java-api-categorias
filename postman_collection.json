@@ -1,0 +1,148 @@
+{
+  "info": {
+    "name": "API de Categorias",
+    "description": "Collection para API de Categorias - Spring Boot",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Criar Categoria",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nome\": \"Eletrônicos\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/categorias",
+          "host": ["{{baseUrl}}"],
+          "path": ["categorias"]
+        },
+        "description": "Cria uma nova categoria"
+      }
+    },
+    {
+      "name": "Listar Categorias",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/categorias",
+          "host": ["{{baseUrl}}"],
+          "path": ["categorias"],
+          "query": [
+            {
+              "key": "nome",
+              "value": "",
+              "description": "Filtro opcional por nome",
+              "disabled": true
+            }
+          ]
+        },
+        "description": "Lista todas as categorias ou filtra por nome"
+      }
+    },
+    {
+      "name": "Buscar Categoria por ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/categorias/:id",
+          "host": ["{{baseUrl}}"],
+          "path": ["categorias", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "1",
+              "description": "ID da categoria"
+            }
+          ]
+        },
+        "description": "Busca uma categoria específica pelo ID"
+      }
+    },
+    {
+      "name": "Atualizar Categoria",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nome\": \"Eletrônicos Atualizado\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/categorias/:id",
+          "host": ["{{baseUrl}}"],
+          "path": ["categorias", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "1",
+              "description": "ID da categoria"
+            }
+          ]
+        },
+        "description": "Atualiza uma categoria existente"
+      }
+    },
+    {
+      "name": "Deletar Categoria",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/categorias/:id",
+          "host": ["{{baseUrl}}"],
+          "path": ["categorias", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "1",
+              "description": "ID da categoria"
+            }
+          ]
+        },
+        "description": "Deleta uma categoria pelo ID"
+      }
+    },
+    {
+      "name": "Verificar se Categoria Existe",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/categorias/:id/existe",
+          "host": ["{{baseUrl}}"],
+          "path": ["categorias", ":id", "existe"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "1",
+              "description": "ID da categoria"
+            }
+          ]
+        },
+        "description": "Verifica se uma categoria existe pelo ID (retorna boolean)"
+      }
+    }
+  ]
+}
